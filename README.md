@@ -310,8 +310,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 Physics Student | Full-Stack IoT Developer
 
 **Connect:**
-- 📧 Email: your.email@example.com
-- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com)
+- 📧 Email: -
+- 💼 LinkedIn: [linkedin.com/in/yourprofile]
 - 🐙 GitHub: [@allkinn](https://github.com/allkinn)
 
 ---
