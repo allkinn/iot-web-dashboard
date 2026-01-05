@@ -17,6 +17,8 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 - Learning web development + IoT integration
 - Rapid prototyping of monitoring systems
 
+---
+
 ## ✨ Features
 
 ### Real-Time Monitoring
@@ -37,6 +39,8 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 - ✅ Simulated sensor data (for demo)
 - ✅ Easy to integrate real sensors
 
+---
+
 ## 🛠️ Tech Stack
 
 | Layer | Technology | Purpose |
@@ -52,6 +56,8 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 - **Fast:** SQLite = no database server needed
 - **Scalable:** Easy to add more sensors/features
 
+---
+
 ## 🚀 Installation
 
 ### Prerequisites
@@ -60,6 +66,7 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 - Modern web browser
 
 ### Quick Start
+
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/iot-web-dashboard.git
@@ -75,6 +82,8 @@ python app.py
 Open browser: `http://localhost:5000`
 
 That's it! Dashboard should be running with simulated data.
+
+---
 
 ## 📖 Usage
 
@@ -93,24 +102,28 @@ Dashboard automatically:
 
 ### API Endpoints
 
-**Get current reading:**
-````
+#### Get current reading
+```http
 GET /api/current
+```
 
-Response:
+**Response:**
+```json
 {
   "timestamp": "2024-12-31 14:30:45",
   "temperature": 24.3,
   "humidity": 55.8,
   "light": 67
 }
-````
+```
 
-**Get historical data:**
-````
+#### Get historical data
+```http
 GET /api/history
+```
 
-Response: Array of last 50 readings
+**Response:** Array of last 50 readings
+```json
 [
   {
     "id": 1,
@@ -118,22 +131,25 @@ Response: Array of last 50 readings
     "temperature": 24.1,
     "humidity": 56.2,
     "light": 65
-  },
-  ...
+  }
 ]
-````
-**Integrating Real Sensors**
-Replace simulated data in app.py:
+```
 
-````
-# Current (simulated):
+### Integrating Real Sensors
+
+Replace simulated data in `app.py`:
+
+**Current (simulated):**
+```python
 def get_sensor_reading():
     return {
         'temperature': round(random.uniform(20, 30), 1),
         # ...
     }
+```
 
-# Replace with real sensor (example: Arduino via serial):
+**Replace with real sensor (example: Arduino via serial):**
+```python
 import serial
 
 def get_sensor_reading():
@@ -145,16 +161,21 @@ def get_sensor_reading():
         'humidity': float(humid),
         'light': int(light)
     }
-````
+```
+
+---
 
 ## 📊 Screenshots
 
-#### Comfort Score Distribution
-![ss](images/ss.png)
-*Left: Current conditions | Right: After improvement*
+### Dashboard Overview
+![Dashboard Screenshot](images/ss.png)
+*Real-time monitoring with live charts and statistics*
+
+---
 
 ## 🏗️ Architecture
-````
+
+```
 ┌─────────────────────────────────────────────┐
 │              Web Browser                    │
 │  ┌────────────────────────────────────┐    │
@@ -184,49 +205,61 @@ def get_sensor_reading():
 │  │   humidity, light)                 │    │
 │  └────────────────────────────────────┘    │
 └─────────────────────────────────────────────┘
-````
+```
+
+---
 
 ## 🎨 Customization
 
-**Add More Sensors**
-1. Update database schema:
-````
+### Add More Sensors
+
+**1. Update database schema:**
+```python
 # In init_db():
 conn.execute('''
     CREATE TABLE sensor_data (
-        ...
-        co2 INTEGER,  -- Add new column
-        ...
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        temperature REAL,
+        humidity REAL,
+        light INTEGER,
+        co2 INTEGER  -- Add new column
     )
 ''')
-````
+```
 
-2. Update API response:
-````
+**2. Update API response:**
+```python
 def get_sensor_reading():
     return {
-        ...
-        'co2': random.randint(400, 1200)  -- Add new sensor
+        'temperature': round(random.uniform(20, 30), 1),
+        'humidity': round(random.uniform(40, 70), 1),
+        'light': random.randint(30, 80),
+        'co2': random.randint(400, 1200)  # Add new sensor
     }
-````
+```
 
-3. Update frontend (HTML + CSS + JS)
+**3. Update frontend** (HTML + CSS + JS)
 
-**Change Update Frequency**
-In dashboard.js:
-````
+### Change Update Frequency
+
+In `dashboard.js`:
+```javascript
 const CONFIG = {
     updateInterval: 5000,      // Change to 5 seconds
     chartUpdateInterval: 30000, // Change to 30 seconds
 };
-````
+```
 
-**Modify Chart Appearance**
-In dashboard.js → initCharts():
-````
+### Modify Chart Appearance
+
+In `dashboard.js` → `initCharts()`:
+```javascript
 borderColor: 'rgb(YOUR_COLOR)',
 backgroundColor: 'rgba(YOUR_COLOR, 0.1)',
-````
+```
+
+---
 
 ## 🔮 Future Enhancements
 
@@ -239,21 +272,37 @@ backgroundColor: 'rgba(YOUR_COLOR, 0.1)',
 - [ ] Historical date range picker
 - [ ] Predictive analytics (ML)
 
+---
+
 ## 🐛 Troubleshooting
 
-**Dashboard not loading:**
+### Dashboard not loading
 - Check Flask server is running (`python app.py`)
 - Verify no port conflicts (port 5000 in use?)
 - Check browser console for errors (F12)
 
-**Charts not updating:**
+### Charts not updating
 - Check browser console for API errors
 - Verify `/api/history` returns data
 - Check JavaScript console logs
 
-**Database errors:**
+### Database errors
 - Delete `iot_data.db` and restart (creates fresh database)
 - Check file permissions
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
 
 ## 👤 Author
 
@@ -261,19 +310,32 @@ backgroundColor: 'rgba(YOUR_COLOR, 0.1)',
 Physics Student | Full-Stack IoT Developer
 
 **Connect:**
-- 📧 [Email] yxansar@gmail.com
-- 💼 [LinkedIn] -
-- 🐙 [GitHub] @allkinn
-
-## 📄 License
-
-MIT License - see LICENSE file
+- 📧 Email: your.email@example.com
+- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com)
+- 🐙 GitHub: [@allkinn](https://github.com/allkinn)
 
 ---
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Chart.js for excellent visualization library
+- Flask team for the lightweight framework
+- IoT community for inspiration
+
+---
+
+<div align="center">
+
 **⭐ If you find this useful, please star the repo!**
 
-**🐛 Issues? [Report here](https://github.com/allkinn/iot-web-dashboard/issues)**
+**🐛 Issues?** [Report here](https://github.com/allkinn/iot-web-dashboard/issues)
 
 *Built with ❤️ for the IoT community*
-````
+
+</div>
