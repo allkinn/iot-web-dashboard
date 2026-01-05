@@ -149,7 +149,9 @@ def get_sensor_reading():
 
 ## 📊 Screenshots
 
-*(Screenshots will be added - capture dashboard in action)*
+#### Comfort Score Distribution
+![ss](images/ss.png)
+*Left: Current conditions | Right: After improvement*
 
 ## 🏗️ Architecture
 ````
