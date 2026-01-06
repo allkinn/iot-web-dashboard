@@ -168,8 +168,11 @@ def get_sensor_reading():
 ## 📊 Screenshots
 
 ### Dashboard Overview
-![Dashboard Screenshot](images/ss.png)
-*Real-time monitoring with live charts and statistics*
+![Desktop view](static/images/Screenshot_desktop.png)
+*Desktop View*
+
+![Mobile view](static/images/Screenshot_mobile.png)
+*Mobile View*
 
 ---
 
