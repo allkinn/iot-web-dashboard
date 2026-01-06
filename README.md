@@ -178,32 +178,32 @@ def get_sensor_reading():
 ```
 ┌─────────────────────────────────────────────┐
 │              Web Browser                    │
-│  ┌────────────────────────────────────┐    │
-│  │  HTML (Structure)                  │    │
-│  │  CSS (Styling)                     │    │
-│  │  JavaScript (Interactivity)        │    │
-│  │  Chart.js (Visualization)          │    │
-│  └────────────────────────────────────┘    │
+│  ┌────────────────────────────────────┐     │
+│  │  HTML (Structure)                  │     │
+│  │  CSS (Styling)                     │     │
+│  │  JavaScript (Interactivity)        │     │
+│  │  Chart.js (Visualization)          │     │
+│  └────────────────────────────────────┘     │
 └─────────────────┬───────────────────────────┘
                   │ HTTP Requests
                   │ (AJAX/Fetch API)
 ┌─────────────────▼───────────────────────────┐
 │           Flask Web Server                  │
-│  ┌────────────────────────────────────┐    │
-│  │  Routes (/, /api/current,          │    │
-│  │          /api/history)             │    │
-│  │  Sensor simulation                 │    │
-│  │  JSON responses                    │    │
-│  └────────────────────────────────────┘    │
+│  ┌────────────────────────────────────┐     │
+│  │  Routes (/, /api/current,          │     │
+│  │          /api/history)             │     │
+│  │  Sensor simulation                 │     │
+│  │  JSON responses                    │     │
+│  └────────────────────────────────────┘     │
 └─────────────────┬───────────────────────────┘
                   │ SQL Queries
 ┌─────────────────▼───────────────────────────┐
 │           SQLite Database                   │
-│  ┌────────────────────────────────────┐    │
-│  │  sensor_data table                 │    │
-│  │  (id, timestamp, temp,             │    │
-│  │   humidity, light)                 │    │
-│  └────────────────────────────────────┘    │
+│  ┌────────────────────────────────────┐     │
+│  │  sensor_data table                 │     │
+│  │  (id, timestamp, temp,             │     │
+│  │   humidity, light)                 │     │
+│  └────────────────────────────────────┘     │
 └─────────────────────────────────────────────┘
 ```
 
