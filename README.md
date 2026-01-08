@@ -41,6 +41,28 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 
 ---
 
+## 🎨 Theme Support
+
+### Dark Mode
+Toggle between light and dark themes with a single click.
+
+**Features:**
+- Persistent theme preference (localStorage)
+- Smooth transitions
+- Dynamic chart colors
+- Accessible contrast ratios
+- Mobile-optimized
+
+![Light Mode](screenshots/light_mode.png)
+![Dark Mode](screenshots/dark_mode.png)
+
+**Implementation:**
+- Pure CSS (no external libraries)
+- JavaScript localStorage API
+- Event-driven theme switching
+
+---
+
 ## 🛠️ Tech Stack
 
 | Layer | Technology | Purpose |
