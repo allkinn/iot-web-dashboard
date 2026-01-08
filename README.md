@@ -39,6 +39,14 @@ A lightweight, responsive web dashboard for monitoring IoT sensor data in real-t
 - ✅ Simulated sensor data (for demo)
 - ✅ Easy to integrate real sensors
 
+### Data Export
+- ✅ Download sensor history as CSV
+- ✅ Date range filters (24h, 7d, 30d, all)
+- ✅ Timestamped filenames
+- ✅ Compatible with Excel, Google Sheets, Python
+
+**Use case:** Export data for offline analysis, backup, or integration with other tools.
+
 ---
 
 ## 🎨 Theme Support
@@ -184,6 +192,28 @@ def get_sensor_reading():
         'light': int(light)
     }
 ```
+
+## 📊 Data Export
+
+### Exporting Data
+
+Click the "Download CSV" button to export all sensor readings.
+
+**CSV format:**
+```csv
+ID,Timestamp,Temperature (°C),Humidity (%),Light (%)
+1,2025-01-06 10:15:23,24.3,55.8,67
+2,2025-01-06 10:15:25,24.5,56.1,68
+...
+```
+
+**Date range options:**
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+- All data
+
+**File naming:** `sensor_data_YYYY-MM-DD.csv`
 
 ---
 
