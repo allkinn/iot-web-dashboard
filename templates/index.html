@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Home Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-home"></i> IoT Home Dashboard</h1>
+            <div class="status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span class="status-text" id="statusText">Connecting...</span>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="theme-btn" aria-label="Toggle dark mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="readings-section">
+                <h2 class="section-title">Current Conditions</h2>
+                <div class="cards-grid">
+                    <div class="card temperature-card">
+                        <div class="card-icon"><i class="fas fa-thermometer-half"></i></div>
+                        <div class="card-content">
+                            <h3 class="card-label">Temperature</h3>
+                            <div class="card-value" id="tempValue">--</div>
+                            <div class="card-unit">°C</div>
+                        </div>
+                        <div class="card-trend" id="tempTrend"></div>
+                    </div>
+
+                    <div class="card humidity-card">
+                        <div class="card-icon"><i class="fas fa-tint"></i></div>
+                        <div class="card-content">
+                            <h3 class="card-label">Humidity</h3>
+                            <div class="card-value" id="humidityValue">--</div>
+                            <div class="card-unit">%</div>
+                        </div>
+                        <div class="card-trend" id="humidityTrend"></div>
+                    </div>
+
+                    <div class="card light-card">
+                        <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="card-content">
+                            <h3 class="card-label">Light Level</h3>
+                            <div class="card-value" id="lightValue">--</div>
+                            <div class="card-unit">%</div>
+                        </div>
+                        <div class="card-trend" id="lightTrend"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts-section">
+                <h2 class="section-title">Historical Data</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Temperature History</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="temperatureChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title">Humidity History</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="humidityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <h2 class="section-title">Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Avg Temperature</div>
+                        <div class="stat-value" id="avgTemp">--</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Avg Humidity</div>
+                        <div class="stat-value" id="avgHumidity">--</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Avg Light</div>
+                        <div class="stat-value" id="avgLight">--</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Total Readings</div>
+                        <div class="stat-value" id="totalReadings">--</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>IoT Dashboard v1.0 | Last updated: <span id="lastUpdate">--</span></p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
