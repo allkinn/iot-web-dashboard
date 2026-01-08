@@ -53,8 +53,8 @@ Toggle between light and dark themes with a single click.
 - Accessible contrast ratios
 - Mobile-optimized
 
-![Light Mode](static/images/screenshots/light_mode.png)
-![Dark Mode](static/images/screenshots/dark_mode.png)
+![Light Mode](static/images/Screenshots/light_mode.png)
+![Dark Mode](static/images/Screenshots/dark_mode.png)
 
 **Implementation:**
 - Pure CSS (no external libraries)
