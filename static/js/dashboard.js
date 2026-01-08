@@ -33,11 +33,138 @@ function generateMockHistory() {
     return history;
 }
 
+// ============ DATA EXPORT ============
+
+function initExport() {
+    const exportBtn = document.getElementById('exportBtn');
+    
+    exportBtn.addEventListener('click', async () => {
+        // Disable button during export
+        exportBtn.disabled = true;
+        exportBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">Exporting...</span>';
+        
+        try {
+        const response = await fetch('/api/history');
+        let data = await response.json();
+        
+        // Apply filter
+        const range = document.getElementById('exportRange').value;
+        data = filterByRange(data, range);
+            
+            if (data.length === 0) {
+                alert('No data available to export');
+                return;
+            }
+            
+            // Convert to CSV
+            const csv = convertToCSV(data);
+            
+            // Trigger download
+            downloadCSV(csv, 'sensor_data.csv');
+            
+            console.log(`✓ Exported ${data.length} records`);
+            
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Export failed. Please try again.');
+        } finally {
+            // Re-enable button
+            exportBtn.disabled = false;
+            exportBtn.innerHTML = '<span class="btn-icon">📥</span><span class="btn-text">Download CSV</span>';
+        }
+    });
+}
+
+function filterByRange(data, range) {
+    if (range === 'all') return data;
+    
+    const now = new Date();
+    const cutoff = new Date();
+    
+    switch(range) {
+        case '24h':
+            cutoff.setHours(now.getHours() - 24);
+            break;
+        case '7d':
+            cutoff.setDate(now.getDate() - 7);
+            break;
+        case '30d':
+            cutoff.setDate(now.getDate() - 30);
+            break;
+    }
+    
+    return data.filter(row => {
+        const rowDate = new Date(row.timestamp);
+        return rowDate >= cutoff;
+    });
+}
+
+function convertToCSV(data) {
+    // CSV header
+    const headers = ['ID', 'Timestamp', 'Temperature (°C)', 'Humidity (%)', 'Light (%)'];
+    
+    // CSV rows
+    const rows = data.map(row => [
+        row.id,
+        row.timestamp,
+        row.temperature,
+        row.humidity,
+        row.light
+    ]);
+    
+    // Combine
+    const csvArray = [headers, ...rows];
+    
+    // Convert to CSV string
+    return csvArray.map(row => row.join(',')).join('\n');
+}
+
+// Generate filename with timestamp
+const now = new Date();
+const timestamp = now.toISOString().split('T')[0]; // YYYY-MM-DD
+const filename = `sensor_data_${timestamp}.csv`;
+
+function downloadCSV(csv, filename) {
+    // Create Blob
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create download link
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function updateExportStats(data) {
+    // Update stats in export section
+    const totalRecords = document.getElementById('totalRecords');
+    const dateRange = document.getElementById('dateRange');
+    
+    if (data.length > 0) {
+        totalRecords.textContent = data.length;
+        
+        const firstDate = data[0].timestamp.split(' ')[0];
+        const lastDate = data[data.length - 1].timestamp.split(' ')[0];
+        dateRange.textContent = `${firstDate} to ${lastDate}`;
+    } else {
+        totalRecords.textContent = '0';
+        dateRange.textContent = 'No data';
+    }
+}
+
 window.onload = function() {
     console.log('Dashboard initializing...');
     
     initThemeToggle();
     initCharts();
+    initExport();
     updateCurrentReadings();
     updateCharts();
     
@@ -111,6 +238,7 @@ async function updateCharts() {
     humidityChart.update('none');
     
     updateStatistics(temperatures, humidities, lights, history.length);
+    updateExportStats(history);
 }
 
 function updateStatistics(temps, humids, lights, count) {
